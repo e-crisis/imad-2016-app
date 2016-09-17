@@ -1,6 +1,6 @@
-var express = require('express');
-var morgan = require('morgan');
-var path = require('path');
+var express = require('express');//importing library: creates the webserver
+var morgan = require('morgan');//importing library: outputs log of our server
+var path = require('path');//importing library
 
 var app = express();
 app.use(morgan('combined'));
