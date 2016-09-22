@@ -5,5 +5,5 @@ element.innerHTML = 'New value';
 //move the image
 var img = document.getElementById('move');
 img.onclick = function () {
-    img.style.marginLeft = '100px';
+    img.style.marginLeft = '100px';//on click image moves to the right
 };
