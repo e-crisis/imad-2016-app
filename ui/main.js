@@ -1,14 +1,11 @@
-console.log('Loaded!');
-//change the text of the main text div
-var element = document.getElementById('main-text');
-element.innerHTML = 'New value';
-//move the image
-var img = document.getElementById('move');
-var marginLeft = 0;
-function moveRight() {
-    marginLeft = marginLeft + 1; //increment value of marginLeft
-    img.style.marginLeft =  marginLeft + 'px';//set the css to that value
-}
-img.onclick = function () {
-    var interval = setInterval(moveRight, 50);//every 100 millisec apply the function moveRight
+//counter code
+var button = document.getElementById('counter');
+var counter = 0;
+button.onclick = function () {
+    //make a request to the counter endpoint
+    //capture the response and store it in a variable
+    //render the variable in the correct span
+    counter = counter + 1;
+    var span = document.getElementById('count');
+    span.innerHTML = counter.toString();
 };
