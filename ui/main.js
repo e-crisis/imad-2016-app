@@ -6,7 +6,7 @@ element.innerHTML = 'New value';
 var img = document.getElementById('move');
 var marginLeft = 0;
 function moveRight() {
-    marginLeft = marginLeft + 10; //increment value of marginLeft
+    marginLeft = marginLeft + 5; //increment value of marginLeft
     img.style.marginLeft =  marginLeft + 'px';//set the css to that value
 }
 img.onclick = function () {
