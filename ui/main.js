@@ -59,11 +59,3 @@ submit.onclick = function () {
      request.send(null);
    
 };
-//submit comment
-var commentInput = document.getElementById('comment');
-var comment = commentInput.value;
-var commentSubmit = document.getElementById('submit_comment');
-commentSubmit.onclick = function () {
-    for (var i=0; i<)
-    
-};
