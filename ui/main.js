@@ -59,3 +59,7 @@ submit.onclick = function () {
      request.send(null);
    
 };
+
+//submit comment
+
+
