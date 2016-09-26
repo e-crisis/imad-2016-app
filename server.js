@@ -13,6 +13,14 @@ app.get('/counter', function (req, res) {
  counter = counter + 1;
   res.send(counter.toString());//you can only send a string as a response and hence we convert the number to a string format
 });
+var names = [];
+app.get('/submit-name', function (req, res) { // URL: /submit-name?name=xxxx
+    //get the name from the request
+    var name = req.query.name;
+    names.push(name);
+    // JSON: JavaScript object notation
+    res.send(JSON.stringify(names));//this will convert the array into a string
+});
 app.get('/article-one', function (req, res){
  res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
 });
@@ -32,14 +40,7 @@ app.get('/ui/main.js', function (req, res) {
 app.get('/ui/madi.png', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'madi.png'));
 });
-var names = [];
-app.get('/submit-name/:name', function (req, res) {
-    //get the name from the request
-    var name = req.params.name;
-    names.push(name);
-    // JSON: JavaScript object notation
-    res.send(JSON.stringify(names));//this will convert the array into a string
-});
+
 var comments = [];
 app.get('/submit-comment/:comment', function (req, res) {
     //get the comment from the request
