@@ -13,6 +13,14 @@ app.get('/counter', function (req, res) {
  counter = counter + 1;
   res.send(counter.toString());//you can only send a string as a response and hence we convert the number to a string format
 });
+var comments = [];
+app.get('/submit-comment', function (req, res) { // URL: /submit-comment?comment=xxxxxx
+    //get the name from the request
+    var comment = req.query.comment;
+    names.push(comment);
+    // JSON: JavaScript object notation
+    res.send(JSON.stringify(comments));//this will convert the array into a string
+});
 var names = [];
 app.get('/submit-name', function (req, res) { // URL: /submit-name?name=xxxx
     //get the name from the request
