@@ -71,7 +71,7 @@ submitComment.onclick = function () {
         if (request.readyState === XMLHttpRequest.DONE) {
             //Take some action
             if (request.status === 200) {
-                //capture a list of names and render it as a list
+                //capture a list of comments and render it as a list
                var comments = request.responseText;
                comments = JSON.parse(comments);
                var list = '';
