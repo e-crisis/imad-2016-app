@@ -79,8 +79,8 @@ submitComment.onclick = function () {
                    list += '<li>' + comments[i] + '</li>';
                    
                }
-               var ul = document.getElementById('commentList');
-               ul.innerHTML = list;
+               var uli = document.getElementById('commentList');
+               uli.innerHTML = list;
             }
         }
     };
