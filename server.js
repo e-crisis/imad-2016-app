@@ -17,7 +17,7 @@ var comments = [];
 app.get('/submit-comment', function (req, res) { // URL: /submit-comment?comment=xxxxxx
     //get the name from the request
     var comment = req.query.comment;
-    names.push(comment);
+    comments.push(comment);
     // JSON: JavaScript object notation
     res.send(JSON.stringify(comments));//this will convert the array into a string
 });
