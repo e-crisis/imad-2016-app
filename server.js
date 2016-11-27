@@ -12,6 +12,98 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 
+var articles = {
+    'article-one': {
+        title: 'Article One | Preetika Mondal',
+        heading: 'Article One',
+        date: 'Sep 5, 2016',
+        content: `
+            <p>
+                    i dont know what i am doing with my life. i know i am screwing it. i have a lot of work to do. 
+                </p>
+                <p>
+                    i have to make report for my summer training project for which i have a presentation on 9th november.
+                </p>
+                <p>
+                    i have to decide on my minor project, make the synopsis and submit it
+                </p>
+                <p>
+                    currently the toughest part is deciding on something really awesome for my minor project. i want it to be useful and of significance. 
+                </p>`
+        
+    },
+    'article-two': {
+        title: 'Article Two | Preetika Mondal',
+        heading: 'Article Two',
+        date: 'Sep 5, 2016',
+        content: `
+            <p>
+                   This is the second article. 
+            </p>`
+        
+    },
+    'article-three': {
+        title: 'Article Three | Preetika Mondal',
+        heading: 'Article Three',
+        date: 'Sep 5, 2016',
+        content: `
+            <p>
+                   This is the third article. 
+            </p>`
+        
+    }
+
+};
+
+function createTemplate (data) {
+    var title = data.title;
+    var date = data.date;
+    var heading = data.heading;
+    var content = data.content;
+    var htmlTemplate = `
+    <html>
+        <head>
+            <title>
+               ${title} 
+            </title>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link href="/ui/style.css" rel="stylesheet" />
+        </head>
+        <body>
+            <div class="container">
+                <div>
+                    <a href="/">Home</a>
+                </div>
+                <hr/>
+                <h3>
+                    ${heading}
+                </h3>
+                <div>
+                    ${date}
+                </div>
+                <div>
+                    ${content}
+                </div>
+                <hr/>
+            
+                <h3> Comments </h3>
+                <input type="text" id="comment" placeholder="type your comment.." size="35">
+                <br/>
+                <br/>
+                <input type="submit" value="submit" id="submit_comment">
+                <ul id="commentList">
+                    
+                </ul>
+            </div>
+            <script type="text/javascript" src="/ui/main.js">
+            </script>
+        </body>
+    </html>
+    `;
+    return htmlTemplate;
+}            
+    
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
@@ -51,15 +143,13 @@ app.get('/submit-name', function (req, res) { // URL: /submit-name?name=xxxx
     // JSON: JavaScript object notation
     res.send(JSON.stringify(names));//this will convert the array into a string
 });
-app.get('/article-one', function (req, res){
- res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+app.get('/:articleName', function (req, res){
+ //articleName == article-one
+ //articles[articleName] == {} content object for article one
+ var articleName = req.params.articleName;
+ res.send(createTemplate(articles[articleName]));
 });
-app.get('/article-two', function (req, res){
- res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
-});
-app.get('/article-three', function (req, res){
- res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
-});
+
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
 });
