@@ -17,10 +17,10 @@ app.get('/', function (req, res) {
 });
 
 var pool = new Pool(config);
-app.get('/TEST-db', function (req, res) {
+app.get('/test-db', function (req, res) {
     //make a select request
     //return a response with results
-    pool.query('SELECT * FROM TEST', function (err,result){
+    pool.query('SELECT * FROM test', function (err,result){
         if (err) {
             res.status(500).send(err.toString());
         } else {
