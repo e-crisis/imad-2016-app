@@ -124,7 +124,7 @@ app.get('/hash/:input', function (req, res) {
 
 app.post('/create-user', function (req, res) {
     //takes username and password as input and creates an entry in the user table of the database
-    var salt = crypto.getRandomBytes(128).toString('hex');
+    var salt = crypto.RandomBytes(128).toString('hex');
     var dbString = hash(password, salt);
     pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbS], function (err,result){
         if (err) {
