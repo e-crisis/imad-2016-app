@@ -111,8 +111,8 @@ app.get('/', function (req, res) {
 
 function hash (input, salt) {
     //how to create a hash? use crypto library.
-    var hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');
-    return hashed.toString('hex');//output comes in binary, we want it in hex
+    var hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');//512 byte string,the value of salt is appended to the input,apply hash function 10000 times;salt used to increase security of passwords
+    return ["pbkdf2", "10000", salt, hashed.toString('hex')].join('$');//output comes in binary, we want it in hex
 }
 
 app.get('/hash/:input', function (req, res) {
