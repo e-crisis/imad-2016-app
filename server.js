@@ -2,6 +2,7 @@ var express = require('express');//importing library: creates the webserver
 var morgan = require('morgan');//importing library: outputs log of our server
 var path = require('path');//importing library
 var Pool = require('pg').Pool;
+var crypto = require('crypto');
 var config = {
     user: 'e-crisis',
     database: 'e-crisis',
@@ -106,6 +107,18 @@ function createTemplate (data) {
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+});
+
+function hash (input, salt) {
+    //how to create a hash? use crypto library.
+    var hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');
+    return hashed.toString('hex');//output comes in binary, we want it in hex
+}
+
+app.get('/hash/:input', function (req, res) {
+    var hashedString = hash(req.params.input, 'random-string');
+    res.send(hashedString);
+    
 });
 
 var pool = new Pool(config);
