@@ -124,6 +124,11 @@ app.get('/hash/:input', function (req, res) {
 
 app.post('/create-user', function (req, res) {
     //takes username and password as input and creates an entry in the user table of the database
+    //JSON
+    
+    var username = req.body.username;
+    var password = req.body.password;
+
     var salt = crypto.RandomBytes(128).toString('hex');
     var dbString = hash(password, salt);
     pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbS], function (err,result){
@@ -136,7 +141,33 @@ app.post('/create-user', function (req, res) {
     });
     
 });
+app.post('/login', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
 
+    pool.query('SELECT * FROM "user" username = $1', [username], function (err,result){ //$1 is the username value
+        if (err) {
+            res.status(500).send(err.toString());
+        } else {
+            if(result.rows.length === 0){
+                res.send(403).send('invalid username or password');
+            }
+            else{
+                //match the password
+                var dbString = result.rows[0].password;//first element in the password field
+                var salt = dbString.split('$')[2];//split by $ will return an array. we extract the third value ie the salt from the array
+                var hashedPassword = hash(password, salt); //creating a hash based on the password submitted and the original salt
+                if (hashedPassword === dbString) {
+                res.send('user seccessfully logged in!');
+            } else{
+                res.send(403).send('invalid username or password');
+            }
+          }
+        }
+    });
+    
+});
+    
 var pool = new Pool(config);
 app.get('/test-db', function (req, res) {
     //make a select request
