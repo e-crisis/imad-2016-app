@@ -4,6 +4,7 @@ var path = require('path');//importing library
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var config = {
     user: 'e-crisis',
     database: 'e-crisis',
@@ -14,6 +15,11 @@ var config = {
 var app = express();
 app.use(morgan('combined'));
 app.use(bodyParser.json());
+app.use(session({
+    secret: 'someRandomValue',//key to encrypt the cookie with
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30}//age of cookie,in this case cookie lasts for 1 month
+    
+}));
 var articles = {
     'article-one': {
         title: 'Article One | Preetika Mondal',
@@ -158,7 +164,14 @@ app.post('/login', function (req, res) {
                 var salt = dbString.split('$')[2];//split by $ will return an array. we extract the third value ie the salt from the array
                 var hashedPassword = hash(password, salt); //creating a hash based on the password submitted and the original salt
                 if (hashedPassword === dbString) {
-                res.send('user seccessfully logged in!');
+                    //set a session
+                    req.session.auth = {userId: result.rows[0].id};
+                    //set cookie with a session id that is randomly generated
+                    //internally, on the server side it maps the session id to an object
+                    //this object contains a value called auth with contains
+                    // {auth: {userId}}
+                    res.send('user seccessfully logged in!');
+                
             } else{
                 res.send(403).send('invalid username or password');
             }
@@ -166,6 +179,14 @@ app.post('/login', function (req, res) {
         }
     });
     
+});
+
+app.get('/check-login', function (req, res) {
+    if (req.session && req.session.auth && req.session.auth.userId) {
+        res.send('you are logged in: ' + req.sessio.auth.userId.toString());
+    } else {
+        res.send('you are not logged in');
+    }
 });
     
 var pool = new Pool(config);
