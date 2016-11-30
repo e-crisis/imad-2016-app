@@ -92,7 +92,7 @@ function createTemplate (data) {
                 <input type="text" id="comment" placeholder="type your comment.." size="35">
                 <br/>
                 <br/>
-                <input type="submit" value="submit" id="submit_comment">
+                <input type="submit" value="Submit" id="submit_comment">
                 <ul id="commentList">
                     
                 </ul>
