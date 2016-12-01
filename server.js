@@ -221,14 +221,7 @@ app.get('/submit-comment', function (req, res) { // URL: /submit-comment?comment
     // JSON: JavaScript object notation
     res.send(JSON.stringify(comments));//this will convert the array into a string
 });
-var names = [];
-app.get('/submit-name', function (req, res) { // URL: /submit-name?name=xxxx
-    //get the name from the request
-    var name = req.query.name;
-    names.push(name);
-    // JSON: JavaScript object notation
-    res.send(JSON.stringify(names));//this will convert the array into a string
-});
+
 app.get('/articles/:articleName', function (req, res){
  //articleName == article-one
  //articles[articleName] == {} content object for article one
