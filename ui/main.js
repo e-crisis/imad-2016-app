@@ -2,7 +2,7 @@
 
 //submit username and password to login
 
-var submit = document.getElementById('submit_btn');
+var submit = document.getElementById('login_btn');
 submit.onclick = function () {
     //create a request object
     var request = new XMLHttpRequest();
@@ -19,7 +19,7 @@ submit.onclick = function () {
                } else if (request.status === 500) {
                    alert('something went wrong with the magic wand');
                }
-               
+               loadLogin();
             }
         //not done yet
     };
@@ -66,6 +66,31 @@ register.onClick = function() {
     register.value = 'Registering...';
 
 };
+
+function loadLoggedInUser (username) {
+    var loginArea = document.getElementById('login_area');
+    loginArea.innerHTML = `
+        <h3> Hi <i>${username}</i></h3>
+        <a href="/logout">Logout</a>
+    `;
+}
+
+function loadLogin () {
+    // Check if the user is already logged in
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (request.readyState === XMLHttpRequest.DONE) {
+            if (request.status === 200) {
+                loadLoggedInUser(this.responseText);
+            } else {
+                loadLoginForm();
+            }
+        }
+    };
+    
+    request.open('GET', '/check-login', true);
+    request.send(null);
+}
 //submit comment
 
 var submitComment = document.getElementById('submit_comment');
