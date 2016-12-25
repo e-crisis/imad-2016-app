@@ -36,7 +36,7 @@ submit.onclick = function () {
 };
 
 var register = document.getElementById('register_btn');
-register.onClick = function() {
+register.onclick = function() {
     //create a request object
     var request = new XMLHttpRequest();
     //capture the response and store it in a variable
