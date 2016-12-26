@@ -25,7 +25,7 @@ body {
 .container{
     max-width: 800px;
     margin: 0 auto;
-    color: #5d4949;
+    color: rgb(255,255,255);
     font-family: sans-serif;
     padding-top: 50px;
     padding-left: 20px;
