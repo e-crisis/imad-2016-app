@@ -119,6 +119,10 @@ app.get('/about', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'about.html'));
 });
 
+app.get('/contact', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'contact.html'));
+});
+
 function hash (input, salt) {
     //how to create a hash? use crypto library.
     var hashed = crypto.pbkdf2Sync(input, salt, 10000, 512, 'sha512');//512 byte string,the value of salt is appended to the input,apply hash function 10000 times;salt used to increase security of passwords
